@@ -1,1 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | The Aligned Notary</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #637761;
+    --brand-dark: #4a5a48;
+    --sage-light: #a8c4b8;
+    --sage-dark: #4d7a6a;
+    --cream: #f7f4ef;
+    --charcoal: #2c2c2c;
+    --muted: #7a7a7a;
+    --divider: #e0dbd2;
+    --card-bg: #ffffff;
+    --shadow: 0 2px 24px rgba(44,44,44,0.07);
+  }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* HERO — solid brand green, no pattern */
+  .hero {
+    background: #637761;
+    padding: 52px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .brand-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 12px;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.15;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  /* HOURS BADGE */
+  .hours-badge {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    position: relative;
+    gap: 4px;
+  }
+
+  .hours-badge-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 6px;
+  }
+
+  .hours-row {
+    font-size: 13px;
+    color: rgba(255,255,255,0.9);
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .hours-row .day {
+    color: rgba(255,255,255,0.65);
+    font-size: 12.5px;
+  }
+
+  .availability-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  .availability-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .dot {
+    width: 7px; height: 7px;
+    background: #6fcf97;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* CONTENT */
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  /* SECTION HEADER */
+  .section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    margin: 40px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  /* SERVICE CARD */
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--divider);
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    padding: 20px;
+  }
+
+  .card.not-avail { background: #fdf2f2; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .card-icon.green  { background: #e8f2ee; }
+  .card-icon.gold   { background: #f7f0e0; }
+  .card-icon.blue   { background: #e8eef7; }
+  .card-icon.purple { background: #f0eaf7; }
+  .card-icon.red    { background: #fde8e8; }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: var(--divider);
+    margin: 0 0 16px;
+  }
+
+  /* TIERS */
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .tier {
+    background: var(--cream);
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+
+  .tier-name {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sage-dark);
+    margin-bottom: 4px;
+  }
+
+  .tier-detail {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+
+  .contact-pricing {
+    font-size: 12px;
+    color: var(--brand);
+    text-align: center;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .contact-pricing a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* INCLUDES LIST */
+  .includes-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .includes-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.5;
+  }
+
+  .check {
+    color: var(--sage-dark);
+    font-size: 14px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  /* DOCS PILLS */
+  .docs-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .doc-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .pill {
+    background: var(--cream);
+    border: 1px solid var(--divider);
+    border-radius: 100px;
+    padding: 4px 11px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* WARN BOX */
+  .warn-box {
+    background: #fff8e6;
+    border: 1px solid #f0d98a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #7a5c1e;
+    margin-bottom: 14px;
+    display: flex;
+    gap: 8px;
+  }
+
+  /* FEES TABLE */
+  .fees-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .fees-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .fees-table td {
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--divider);
+    color: #444;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .fees-table tr:last-child td { border-bottom: none; }
+  .fees-table .cost { font-weight: 500; color: var(--sage-dark); white-space: nowrap; }
+  .fees-table .item-name { font-weight: 500; color: var(--charcoal); }
+
+  .fees-section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 18px 0 6px;
+  }
+
+  .fees-section-label:first-child { margin-top: 0; }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    background: var(--brand);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 13px 32px;
+    border-radius: 100px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 20px rgba(99,119,97,0.35);
+  }
+
+  .cta-btn:hover {
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+  }
+
+  /* BOTTOM CTA */
+  .bottom-cta {
+    background: #637761;
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    margin-top: 32px;
+  }
+
+  .bottom-cta h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 22px;
+  }
+
+  .learn-link {
+    display: block;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.7);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-top: 20px;
+  }
+
+  .learn-link:hover { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="brand-label">The Aligned Notary, LLC</div>
+  <h1>100% Online.<br>100% Secure.</h1>
+  <p class="tagline">Aligned with you, wherever you are</p>
+
+  <div class="hours-badge">
+    <div class="hours-badge-label">Hours of Operation</div>
+    <div class="hours-row"><span class="day">Monday – Friday</span><span>10:00 AM – 5:00 PM ET</span></div>
+    <div class="hours-row"><span class="day">Saturday</span><span>1:00 PM – 5:00 PM ET</span></div>
+  </div>
+
+  <div class="availability-badges">
+    <div class="availability-badge"><span class="dot"></span> Same-Day Sessions Available</div>
+    <div class="availability-badge"><span class="dot"></span> Holidays Available</div>
+    <div class="availability-badge"><span class="dot"></span> After-Hours Available <span style="opacity:0.65;font-size:11px;">(fees apply)</span></div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+  <div class="section-label">Online Notary Services</div>
+
+  <!-- EVERY SESSION INCLUDES -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">Every Session Includes</div>
+        <div class="card-subtitle">Standard with all notarizations</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="includes-list">
+      <li><span class="check">✓</span> Online session hosting via state-approved RON platform</li>
+      <li><span class="check">✓</span> State-of-the-art secure identity verification</li>
+      <li><span class="check">✓</span> Pre-session document audit — catches errors before you sign</li>
+      <li><span class="check">✓</span> Session recording &amp; secure digital storage</li>
+      <li><span class="check">✓</span> Unlimited, lifetime access to your digital copies via secure link</li>
+      <li><span class="check">✓</span> Immediate encrypted delivery to Title, Lender, or Attorney</li>
+    </ul>
+  </div>
+
+  <!-- GENERAL NOTARY -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon blue">📄</div>
+      <div>
+        <div class="card-title">General Notary Services</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="docs-label">Common Documents</div>
+    <div class="doc-pills">
+      <span class="pill">Affidavits &amp; Sworn Statements</span>
+      <span class="pill">Jurats &amp; Oaths</span>
+      <span class="pill">Statutory Declarations</span>
+      <span class="pill">Signature Witnessing</span>
+      <span class="pill">Financial &amp; Business Agreements</span>
+      <span class="pill">Parental Consent Forms</span>
+      <span class="pill">Family &amp; Adoption Documents</span>
+      <span class="pill">Personal Documents</span>
+      <span class="pill">+ more</span>
+    </div>
+  </div>
+
+  <!-- LOAN & REAL ESTATE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon gold">🏡</div>
+      <div>
+        <div class="card-title">Loan &amp; Real Estate Signings (eClosings)</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="warn-box">⚠️ RON-eligible only if your lender and title company permit electronic notarization. Confirm before booking.</div>
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-name">Tier 1</div>
+        <div class="tier-detail">Up to 15<br>notarizations</div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Tier 2</div>
+        <div class="tier-detail">Up to 25<br>notarizations</div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Tier 3</div>
+        <div class="tier-detail">26+<br>notarizations</div>
+      </div>
+    </div>
+    <div class="contact-pricing">
+      <a href="#">Contact me for pricing →</a>
+    </div>
+    <div class="card-divider"></div>
+    <div class="docs-label">Common Documents</div>
+    <div class="doc-pills">
+      <span class="pill">Closing Disclosure</span>
+      <span class="pill">Deed of Trust / Mortgage</span>
+      <span class="pill">Promissory Note</span>
+      <span class="pill">Affidavits</span>
+      <span class="pill">Notice of Right to Cancel</span>
+      <span class="pill">Loan Application (1003)</span>
+      <span class="pill">Corporate / LLC Resolutions</span>
+      <span class="pill">Trust Certificates</span>
+      <span class="pill">Estate Planning Sets</span>
+      <span class="pill">+ more</span>
+    </div>
+  </div>
+
+  <!-- ESTATE PLANNING -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon purple">📜</div>
+      <div>
+        <div class="card-title">Estate Planning Documents</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <div class="docs-label">Common Documents</div>
+    <div class="doc-pills">
+      <span class="pill">Health Care Directives</span>
+      <span class="pill">Living Wills</span>
+      <span class="pill">Trusts</span>
+      <span class="pill">Durable Power of Attorney</span>
+      <span class="pill">General Power of Attorney</span>
+      <span class="pill">Medical Power of Attorney</span>
+      <span class="pill">+ more</span>
+    </div>
+  </div>
+
+  <div class="section-label">Additional Services</div>
+
+  <!-- ADD-ONS -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon green">➕</div>
+      <div>
+        <div class="card-title">Add-On Services</div>
+        <div class="card-subtitle">Available with any session</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="includes-list">
+      <li><span class="check">📬</span><div><strong>Physical Copies</strong> — Printed &amp; mailed to you or a third party</div></li>
+      <li><span class="check">🔄</span><div><strong>File Conversion</strong> — Convert photos, docs, or files to RON-compatible PDFs</div></li>
+      <li><span class="check">🔍</span><div><strong>Document Prep (No Notarization)</strong> — Full audit for errors, witness requirements, and platform readiness. <em>Fee is 100% waived if you sign with me.</em></div></li>
+    </ul>
+  </div>
+
+  <!-- NOT AVAILABLE -->
+  <div class="card not-avail">
+    <div class="card-header">
+      <div class="card-icon red">🚫</div>
+      <div>
+        <div class="card-title">Not Available via RON</div>
+        <div class="card-subtitle">Requires in-person notarization</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="includes-list">
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> I-9 Employment Eligibility Verification</li>
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Vehicle VIN Verification</li>
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Paper Wills (electronic wills accepted)</li>
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Acknowledgments for virtual hearings</li>
+    </ul>
+  </div>
+
+  <div class="section-label">Fee Schedule</div>
+
+  <!-- FEES -->
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div class="card-title">No hidden fees, ever</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+
+    <div class="fees-section-label">Mandatory Session Fees</div>
+    <table class="fees-table">
+      <thead>
+        <tr><th>Item</th><th>Cost</th><th>Details</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="item-name">Secure Tech / Platform</td>
+          <td class="cost">$10</td>
+          <td>ID verification, secure storage &amp; platform costs</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fees-section-label">Optional / Situational Fees</div>
+    <table class="fees-table">
+      <thead>
+        <tr><th>Item</th><th>Cost</th><th>Details</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="item-name">International Signer</td>
+          <td class="cost">$66</td>
+          <td>For signers outside the U.S.</td>
+        </tr>
+        <tr>
+          <td class="item-name">Witness Fee</td>
+          <td class="cost">$30 <span style="font-weight:400;color:var(--muted);font-size:12px;">(per witness)</span></td>
+          <td>State-approved remote witness sourced for you</td>
+        </tr>
+        <tr>
+          <td class="item-name">After-Hours</td>
+          <td class="cost">$95</td>
+          <td>Outside hours of operation</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="bottom-cta" id="book">
+    <h3>Ready to get started?</h3>
+    <a href="#" class="cta-btn" style="background:#fff;color:#637761;">📅 Schedule Your Session</a>
+    <a href="#" class="learn-link">Learn how online notarization works &amp; why it's secure →</a>
+  </div>
+
+</div>
+</body>
+</html>
