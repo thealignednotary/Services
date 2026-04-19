@@ -29,7 +29,6 @@
     padding: 0 0 60px;
   }
 
-  /* HERO — solid brand green, no pattern */
   .hero {
     background: #637761;
     padding: 52px 24px 40px;
@@ -69,7 +68,6 @@
     margin-bottom: 24px;
   }
 
-  /* HOURS BADGE */
   .hours-badge {
     display: inline-flex;
     flex-direction: column;
@@ -140,14 +138,12 @@
     50% { opacity: 0.4; }
   }
 
-  /* CONTENT */
   .container {
     max-width: 640px;
     margin: 0 auto;
     padding: 0 16px;
   }
 
-  /* SECTION HEADER */
   .section-label {
     font-size: 10px;
     font-weight: 500;
@@ -167,7 +163,6 @@
     background: var(--divider);
   }
 
-  /* SERVICE CARD */
   .card {
     background: var(--card-bg);
     border-radius: 16px;
@@ -223,54 +218,6 @@
     margin: 0 0 16px;
   }
 
-  /* TIERS */
-  .tiers {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-
-  .tier {
-    background: var(--cream);
-    border: 1px solid var(--divider);
-    border-radius: 10px;
-    padding: 12px 10px;
-    text-align: center;
-  }
-
-  .tier-name {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--sage-dark);
-    margin-bottom: 4px;
-  }
-
-  .tier-detail {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--charcoal);
-    line-height: 1.2;
-  }
-
-  .contact-pricing {
-    font-size: 12px;
-    color: var(--brand);
-    text-align: center;
-    margin-bottom: 16px;
-    font-weight: 500;
-  }
-
-  .contact-pricing a {
-    color: var(--brand);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  /* INCLUDES LIST */
   .includes-list {
     list-style: none;
     padding: 0;
@@ -295,7 +242,6 @@
     flex-shrink: 0;
   }
 
-  /* DOCS PILLS */
   .docs-label {
     font-size: 11px;
     font-weight: 500;
@@ -320,7 +266,6 @@
     color: var(--muted);
   }
 
-  /* WARN BOX */
   .warn-box {
     background: #fff8e6;
     border: 1px solid #f0d98a;
@@ -333,7 +278,6 @@
     gap: 8px;
   }
 
-  /* FEES TABLE */
   .fees-table {
     width: 100%;
     border-collapse: collapse;
@@ -374,11 +318,10 @@
 
   .fees-section-label:first-child { margin-top: 0; }
 
-  /* CTA */
   .cta-btn {
     display: inline-block;
-    background: var(--brand);
-    color: #fff;
+    background: #fff;
+    color: #637761;
     font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
@@ -392,11 +335,10 @@
   }
 
   .cta-btn:hover {
-    background: var(--brand-dark);
+    background: var(--cream);
     transform: translateY(-1px);
   }
 
-  /* BOTTOM CTA */
   .bottom-cta {
     background: #637761;
     border-radius: 20px;
@@ -449,9 +391,8 @@
 <!-- CONTENT -->
 <div class="container">
 
-  <div class="section-label">Online Notary Services</div>
-
-  <!-- EVERY SESSION INCLUDES -->
+  <!-- EVERY SESSION INCLUDES — no section label above it -->
+  <div style="margin-top:32px;"></div>
   <div class="card">
     <div class="card-header">
       <div>
@@ -469,6 +410,27 @@
       <li><span class="check">✓</span> Immediate encrypted delivery to Title, Lender, or Attorney</li>
     </ul>
   </div>
+
+  <!-- NOT AVAILABLE -->
+  <div class="card not-avail">
+    <div class="card-header">
+      <div class="card-icon red">🚫</div>
+      <div>
+        <div class="card-title">Not Available via RON</div>
+        <div class="card-subtitle">Requires in-person notarization</div>
+      </div>
+    </div>
+    <div class="card-divider"></div>
+    <ul class="includes-list">
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> I-9 Employment Eligibility Verification</li>
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Vehicle VIN Verification</li>
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Paper Wills (electronic wills accepted)</li>
+      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Acknowledgments for virtual hearings</li>
+    </ul>
+  </div>
+
+  <!-- SECTION LABEL now sits right above General Notary -->
+  <div class="section-label">Online Notary Services</div>
 
   <!-- GENERAL NOTARY -->
   <div class="card">
@@ -503,7 +465,7 @@
     </div>
     <div class="card-divider"></div>
     <div class="warn-box">⚠️ RON-eligible only if your lender and title company permit electronic notarization. Confirm before booking.</div>
-  <div class="docs-label">Common Documents</div>
+    <div class="docs-label">Common Documents</div>
     <div class="doc-pills">
       <span class="pill">Closing Disclosure</span>
       <span class="pill">Deed of Trust / Mortgage</span>
@@ -555,24 +517,6 @@
       <li><div><strong>Physical Copies</strong> — Printed &amp; mailed to you or a third party</div></li>
       <li><div><strong>File Conversion</strong> — Convert photos, docs, or files to RON-compatible PDFs</div></li>
       <li><div><strong>Document Prep (No Notarization)</strong> — Full audit for errors, witness requirements, and platform readiness. <em>Fee is 100% waived if you sign with me.</em></div></li>
-    </ul>
-  </div>
-
-  <!-- NOT AVAILABLE -->
-  <div class="card not-avail">
-    <div class="card-header">
-      <div class="card-icon red">🚫</div>
-      <div>
-        <div class="card-title">Not Available via RON</div>
-        <div class="card-subtitle">Requires in-person notarization</div>
-      </div>
-    </div>
-    <div class="card-divider"></div>
-    <ul class="includes-list">
-      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> I-9 Employment Eligibility Verification</li>
-      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Vehicle VIN Verification</li>
-      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Paper Wills (electronic wills accepted)</li>
-      <li><span style="color:#c0392b;font-size:14px;flex-shrink:0;">✗</span> Acknowledgments for virtual hearings</li>
     </ul>
   </div>
 
@@ -629,8 +573,8 @@
   <!-- BOTTOM CTA -->
   <div class="bottom-cta" id="book">
     <h3>Ready to get started?</h3>
-    <a href="https://app.notaryhub.com/notary/ariel-jordan-V6az5PUdp6" class="cta-btn" style="background:#fff;color:#637761;">📅 Schedule Your Session</a>
-    <a href="https://www.canva.com/design/DAGz6-nTn74/kdm40Ihh4tp2H-_Ti7MUNA/view?utm_content=DAGz6-nTn74&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h1c263c6181" class="learn-link">Learn how online notarization works &amp; why it's secure →</a>
+    <a href="#" class="cta-btn">📅 Schedule Your Session</a>
+    <a href="#" class="learn-link">Learn how online notarization works &amp; why it's secure →</a>
   </div>
 
 </div>
